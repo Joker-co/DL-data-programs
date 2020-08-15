@@ -54,3 +54,47 @@ def sort_heap(nums):
 nums = [4,1,87,2,7,19,3,11,8]
 # print(sort_maopao(nums))
 print(sort_heap(nums))
+
+'''
+sort_guibin() 归并排序
+时间复杂度：最好O(nlogn),最差O(nlogn),平均O(nlogn)
+空间复杂度：O(n)
+'''
+def sort_guibin(data):
+    T = len(data)
+    temp = data[:]
+    
+    limit = 1
+    while limit<T:
+        idx = 0
+        while True:
+            beg1, end1 = idx, idx + limit -1
+            beg2, end2 = idx + limit, idx + 2 * limit -1
+            if end1>=T-1:
+                break
+            if end2>T-1:
+                end2 = T-1
+            while beg1<=end1 and beg2<=end2:
+                if data[beg1]<data[beg2]:
+                    temp[idx] = data[beg1]
+                    beg1 += 1
+                else:
+                    temp[idx] = data[beg2]
+                    beg2 += 1
+                idx += 1
+            if beg1<=end1:
+                temp[idx] = data[beg1]
+                idx += 1
+                beg1 += 1
+            if beg2<=end2:
+                temp[idx] = data[beg2]
+                idx += 1
+                beg2 += 1
+            if idx>=T:
+                break
+        limit *= 2
+        data = temp[:]
+    return data
+
+data = [2,3,5,1,88,2,3]
+print(sort_guibin(data))
